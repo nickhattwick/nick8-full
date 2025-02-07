@@ -1,4 +1,7 @@
 node_modules/
 .env
 nohup.out
-
+# Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
