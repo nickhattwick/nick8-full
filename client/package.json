@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "react-native-camera": "^4.2.1",
+    "react-native-dotenv": "^3.4.11"
+  },
+  "scripts": {
+    "android-general": "cd android && ./gradlew installGeneralDebug",
+    "android-mlkit": "cd android && ./gradlew installMlkitDebug"
+  }
+}

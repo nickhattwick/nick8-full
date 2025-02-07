@@ -1,0 +1,18 @@
+# OSX
+#
+.DS_Store
+.env
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+.cxx/
+
+# Bundle artifacts
+*.jsbundle
+node_modules

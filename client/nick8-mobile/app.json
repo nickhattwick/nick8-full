@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Nick8Mobile",
+    "slug": "nick8mobile",
+    "version": "1.0.0",
+    "scheme": "nk8",
+    "orientation": "portrait",
+    "icon": "./assets/nlwicon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nickhattwick.nick8mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/nlwicon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.nickhattwick.nick8mobile"
+    },
+    "web": {
+      "favicon": "./assets/nlwicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "90546f0f-4a9b-402f-be8b-c82046d58492"
+      }
+    },
+    "owner": "nickhattwick",
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}
