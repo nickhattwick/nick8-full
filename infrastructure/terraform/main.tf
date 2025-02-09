@@ -3,8 +3,9 @@ provider "aws" {
 }
 
 resource "aws_instance" "server" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
+  ami                  = var.ami_id
+  instance_type        = var.instance_type
+  iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
 
   tags = {
     Name = "ServerInstance"
@@ -12,7 +13,7 @@ resource "aws_instance" "server" {
 }
 
 resource "aws_dynamodb_table" "nick_badges" {
-  name           = var.dynamodb_table_name
+  name           = "NickBadges"
   billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "UserEmail"
 
@@ -58,9 +59,8 @@ resource "aws_dynamodb_table" "food_log_counts" {
 
 resource "aws_dynamodb_table" "food_entries" {
   name           = "FoodEntries"
-  billing_mode   = "PAY_PER_REQUEST"
+  billing_mode   = "PROVISIONED"
   hash_key       = "EntryId"
-  range_key      = "UserEmail"
 
   attribute {
     name = "EntryId"
@@ -82,6 +82,8 @@ resource "aws_dynamodb_table" "food_entries" {
     hash_key        = "UserEmail"
     range_key       = "Timestamp"
     projection_type = "ALL"
+    write_capacity  = 5
+    read_capacity   = 5
   }
 
   tags = {
@@ -121,11 +123,14 @@ resource "aws_iam_role_policy" "ec2_policy" {
           "dynamodb:Query"
         ]
         Effect   = "Allow"
-        Resource = [
-          aws_dynamodb_table.nick_badges.arn,
-          aws_dynamodb_table.nick_streaks.arn,
-          aws_dynamodb_table.food_log_counts.arn,
-          aws_dynamodb_table.food_entries.arn
+        "Resource": [
+          "arn:aws:dynamodb:us-east-1:118228647830:table/UserWorkouts",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/UserExercises",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/FoodEntries",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/FoodEntries/index/*",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/Nick8Streaks",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/NickBadges",
+          "arn:aws:dynamodb:us-east-1:118228647830:table/FoodLogCounts"
         ]
       }
     ]
@@ -135,14 +140,4 @@ resource "aws_iam_role_policy" "ec2_policy" {
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = var.iam_instance_profile_name
   role = aws_iam_role.ec2_role.name
-}
-
-resource "aws_instance" "server_with_iam" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
-
-  tags = {
-    Name = "ServerInstanceWithIAM"
-  }
 }
