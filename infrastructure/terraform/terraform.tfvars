@@ -1,0 +1,6 @@
+aws_region = "us-east-1"
+ami_id = "ami-0fff1b9a61dec8a5f"
+instance_type = "t3.medium"
+iam_role_name = "EC2Role"
+iam_policy_name = "EC2Policy"
+iam_instance_profile_name = "EC2InstanceProfile"
